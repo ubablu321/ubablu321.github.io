@@ -4,6 +4,8 @@ const startButton = document.getElementById('start-btn'); // Button to start spe
 const stopButton = document.getElementById('stop-btn'); // Button to stop speech recognition
 const textArea = document.getElementById('speech-text-area'); // Element to display the transcribed text
 const saveTextBtn = document.getElementById('save-btn'); // Element to display the transcribed text
+const clearButton = document.getElementById('clear-btn'); // Button to clear the transcribed text
+
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition; // Web Speech API compatibility check
 const recognition = new SpeechRecognition(); // Create a new instance of SpeechRecognition
@@ -75,6 +77,14 @@ stopButton.addEventListener('click', () => {
     recognition.stop();
     stopButton.disabled = true;
     startButton.textContent="🎤 Start Transcribing";
+});
+// Event listener for the clear button to clear the transcribed text
+clearButton.addEventListener('click', () => {
+    const textArea = document.getElementById('speech-text-area');
+    textArea.value = ''; // Clear the text area
+    recognition.stop(); // Stop speech recognition
+    console.log('Text area cleared.');
+
 });
 // Function to display a toast message on error
 function showToast(message) {
