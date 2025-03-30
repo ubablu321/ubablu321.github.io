@@ -37,7 +37,7 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    height: 40px;
+    height: 50px;
     margin: 10px;
     width: 200px;
 }
@@ -71,6 +71,23 @@ button:hover {
     justify-content: center;
     align-items: center;
     height: 100%;
+}
+button.icon-btn {
+    background-color: transparent; /* Transparent background */
+    border: none; /* Remove border */
+    cursor: pointer; /* Pointer cursor on hover */
+    padding: 0; /* Remove padding */
+    display: flex;
+    align-items: center;
+}
+
+button.icon-btn img.icon {
+    width: 24px; /* Set the size of the icon */
+    height: 24px;
+}
+
+button.icon-btn:hover img.icon {
+    opacity: 0.8; /* Slightly dim the icon on hover */
 }
 /* Fade-in-out animation */
 @keyframes fadeInOut {
