@@ -7,6 +7,47 @@ const saveTextBtn = document.getElementById('save-btn'); // Element to display t
 const clearButton = document.getElementById('clear-btn'); // Button to clear the transcribed text
 
 
+// Check if the Speech Recognition API is supported
+if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
+    // Create and display a modal
+    const modal = document.createElement('div');
+    modal.id = 'unsupported-modal';
+    modal.style.position = 'fixed';
+    modal.style.top = '0';
+    modal.style.left = '0';
+    modal.style.width = '100%';
+    modal.style.height = '100%';
+    modal.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    modal.style.color = 'white';
+    modal.style.display = 'flex';
+    modal.style.flexDirection = 'column';
+    modal.style.justifyContent = 'center';
+    modal.style.alignItems = 'center';
+    modal.style.zIndex = '1000';
+
+    const message = document.createElement('p');
+    message.textContent = 'Your browser does not support the Speech Recognition API. Please use a supported browser like Google Chrome , Edge.';
+    message.style.textAlign = 'center';
+    message.style.margin = '20px';
+
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Close';
+    closeButton.style.padding = '10px 20px';
+    closeButton.style.backgroundColor = '#dc3545';
+    closeButton.style.color = 'white';
+    closeButton.style.border = 'none';
+    closeButton.style.borderRadius = '5px';
+    closeButton.style.cursor = 'pointer';
+
+    closeButton.addEventListener('click', () => {
+        modal.remove(); // Remove the modal when the button is clicked
+    });
+
+    modal.appendChild(message);
+    modal.appendChild(closeButton);
+    document.body.appendChild(modal);
+}
+
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition; // Web Speech API compatibility check
 const recognition = new SpeechRecognition(); // Create a new instance of SpeechRecognition
 
