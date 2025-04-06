@@ -68,7 +68,7 @@ self.onmessage = (event) => {
     loadModel(input)
   }
   if (type === 'load-model-file') {
-    loadModelFromFile(data); // Load the model from the uploaded file
+    loadModelFromFile(input); // Load the model from the uploaded file
   }
 };
 

@@ -45,7 +45,7 @@ document.getElementById('upload-model-btn').addEventListener('click', () => {
 
       reader.onload = (event) => {
           const modelData = event.target.result;
-          worker.postMessage({ type: 'load-model-file', data: modelData });
+          worker.postMessage({ type: 'load-model-file', input: modelData });
       };
 
       reader.onerror = () => {
