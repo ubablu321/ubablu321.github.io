@@ -1,7 +1,7 @@
 // Use importScripts to load the Mediapipe library
 importScripts('/scripts/@mediapipe/tasks-genai/genai_bundle.mjs');
-https://media.githubusercontent.com/media/ubablu321/ubablu321.github.io/refs/heads/main/assets/gemma3-1b-it-int4.task?download=true
-const modelPath = '/refs/heads/main/assets/gemma3-1b-it-int4.task';
+const modelPath = 'https://media.githubusercontent.com/media/ubablu321/ubablu321.github.io/refs/heads/main/assets/gemma3-1b-it-int4.task';
+//const modelPath = '/refs/heads/main/assets/gemma3-1b-it-int4.task';
 let llmInference;
 //qn:FilesetResolver  Cr:LlmInference;
 // Function to load the model
