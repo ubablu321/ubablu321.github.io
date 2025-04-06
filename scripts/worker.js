@@ -1,13 +1,12 @@
 // Use importScripts to load the Mediapipe library
 importScripts('/scripts/@mediapipe/tasks-genai/genai_bundle.mjs');
-const modelPath = 'https://drive.google.com/file/d/12RGzc8mAYsTqKrIyjxSAHvmTImtHCnZr/view?usp=sharing';
-//const modelPath = '/refs/heads/main/assets/gemma3-1b-it-int4.task';
+//const modelPath = '/models/llm/llama2-7b-chat.gguf';
 let llmInference;
 //qn:FilesetResolver  Cr:LlmInference;
 // Function to load the model
 const FilesetResolver = self.qn;
 const LlmInference = self.Cr;
-async function loadModel() {
+async function loadModel(modelPath) {
   try {
     const genaiFileset = await FilesetResolver.forGenAiTasks(
       '/scripts/@mediapipe/tasks-genai/wasm'
@@ -43,7 +42,14 @@ self.onmessage = (event) => {
   if (type === 'generate-response') {
     generateResponse(input);
   }
+  if (type === 'stop') {
+    llmInference.stop();
+  }
+  //load models with user input LLms
+  if (type === 'load-model') {
+    loadModel(input)
+  }
 };
 
 // Load the model when the worker starts
-loadModel();
+//loadModel();

@@ -26,6 +26,15 @@ worker.onmessage = (event) => {
     submit.disabled = false;
   }
 };
+//accept model url from user input
+document.getElementById('submit-model-btn').addEventListener('click', () => {
+  const modelUrl = document.getElementById('model-url').value;
+  if (modelUrl) {
+      worker.postMessage({ type: 'load-model', input: modelUrl });
+  } else {
+      alert('Please enter a valid model URL.');
+  }
+});
 
 // Handle the submit button click
 submit.onclick = () => {

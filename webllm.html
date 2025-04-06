@@ -5,6 +5,10 @@
     <title>LLM Inference Web Demo</title>
 </head>
 <body>
+    <div class="model-input-container">
+        <input type="text" id="model-url" placeholder="Enter LLM model URL" />
+        <button id="submit-model-btn">Submit</button>
+    </div>
     Input:<br />
     <textarea id="input" style="height: 300px; width: 600px"></textarea><br />
     <input type="button" id="submit" value="Get Response" disabled /><br />
