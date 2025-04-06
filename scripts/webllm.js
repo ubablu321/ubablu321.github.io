@@ -35,6 +35,28 @@ document.getElementById('submit-model-btn').addEventListener('click', () => {
       alert('Please enter a valid model URL.');
   }
 });
+//accept model from user local machine
+document.getElementById('upload-model-btn').addEventListener('click', () => {
+  const fileInput = document.getElementById('model-file');
+  const file = fileInput.files[0];
+
+  if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+          const modelData = event.target.result;
+          worker.postMessage({ type: 'load-model-file', data: modelData });
+      };
+
+      reader.onerror = () => {
+          alert('Failed to read the file. Please try again.');
+      };
+
+      reader.readAsArrayBuffer(file);
+  } else {
+      alert('Please select a model file to upload.');
+  }
+});
 
 // Handle the submit button click
 submit.onclick = () => {

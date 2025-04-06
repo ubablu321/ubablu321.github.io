@@ -6,7 +6,7 @@ let llmInference;
 // Function to load the model
 const FilesetResolver = self.qn;
 const LlmInference = self.Cr;
-async function loadModel(modelPath) {
+async function loadModelFromUrl(modelPath) {
   try {
     const genaiFileset = await FilesetResolver.forGenAiTasks(
       '/scripts/@mediapipe/tasks-genai/wasm'
@@ -21,6 +21,24 @@ async function loadModel(modelPath) {
     console.error('Error loading model:', error);
     // Notify the main thread about the error
     self.postMessage({ type: 'error', data: { message: 'Failed to initialize the task.' } });
+  }
+}
+
+async function loadModelFromFile(modelData) {
+  try {
+    const genaiFileset = await FilesetResolver.forGenAiTasks(
+      '/scripts/@mediapipe/tasks-genai/wasm'
+    );
+    llmInference = await LlmInference.createFromOptions(genaiFileset, {
+      baseOptions: { modelAssetBuffer: modelData },
+    });
+    console.log('Model loaded from file:', llmInference);
+    // Notify the main thread that the model is loaded
+    self.postMessage({ type: 'model-loaded' });
+  } catch (error) {
+    console.error('Error loading model from file:', error);
+    // Notify the main thread about the error
+    self.postMessage({ type: 'error', data: { message: 'Failed to load the model from file.' } });
   }
 }
 
@@ -48,6 +66,9 @@ self.onmessage = (event) => {
   //load models with user input LLms
   if (type === 'load-model') {
     loadModel(input)
+  }
+  if (type === 'load-model-file') {
+    loadModelFromFile(data); // Load the model from the uploaded file
   }
 };
 
