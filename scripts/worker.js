@@ -30,7 +30,7 @@ async function loadModelFromFile(modelData) {
       '/scripts/@mediapipe/tasks-genai/wasm'
     );
     llmInference = await LlmInference.createFromOptions(genaiFileset, {
-      baseOptions: { modelAssetBuffer: modelData },
+      baseOptions: { modelAssetBuffer: new Uint8Array(modelData) },
     });
     console.log('Model loaded from file:', llmInference);
     // Notify the main thread that the model is loaded
@@ -65,7 +65,7 @@ self.onmessage = (event) => {
   }
   //load models with user input LLms
   if (type === 'load-model') {
-    loadModel(input)
+    loadModelFromUrl(input)
   }
   if (type === 'load-model-file') {
     loadModelFromFile(input); // Load the model from the uploaded file
